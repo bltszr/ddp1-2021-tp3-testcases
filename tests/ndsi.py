@@ -138,7 +138,7 @@ def test_compute_ndsi(module):
     assert len(diff) == 0
 
 # remove the PLACEHOLDER to test main    
-def test_main(module):#, PLACEHOLDER):
+def test_main(module, PLACEHOLDER):
     folder_name, _ = os.path.split(module.__file__)
     module.main()
     plt.close()

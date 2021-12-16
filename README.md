@@ -6,7 +6,7 @@ Write the respective module's tests in `tests/ndsi.py` and `tests/predict.py`.
 
 
 
-**To test the main block**: uncomment line 83 in `test_TP3.py` and remove the `PLACEHOLDER` variables in the function signature for `test_main` in `tests/ndsi.py` and `tests/predict.py`.
+**To test the main block**: uncomment the corresponding part in `main` of `test_TP3.py` and remove the `PLACEHOLDER` variables in the function signature for `test_main` in `tests/ndsi.py` and `tests/predict.py`.
 
 
 

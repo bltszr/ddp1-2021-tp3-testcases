@@ -94,7 +94,7 @@ def test_compute_score(module):
     print(np.linalg.norm(diff.ravel(), ord=0))
     assert np.linalg.norm(diff.ravel(), ord=0) == 0
     
-def test_main(module):#, PLACEHOLDER):
+def test_main(module, PLACEHOLDER):
     folder_name, _ = os.path.split(module.__file__)
     shutil.copy(os.path.join(os.getcwd(), "temp/ref-ndsi.txt"), os.path.join(os.getcwd(), "ndsi.txt"))
     ref_main()

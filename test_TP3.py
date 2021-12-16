@@ -78,8 +78,8 @@ def main():
     for folder in folders:
         # uncomment this to do the preprocessing
         # i.e., if you would also like to test the main function
-        # I'd advise against it because it's cumbersom to clean up
-        preprocess_folder(folder)
+        # I'd advise against it because it's cumbersome to clean up
+        # preprocess_folder(folder)
         print()
         print(f"{'='*30}\nTesting {folder}...")
         do_main(folder)
