@@ -82,7 +82,11 @@ def test_load_stop_words(module):
     ref_stopwords = ref_load_stop_words(filename)
     stopwords = module.load_stop_words(filename)
     diff = ref_stopwords.symmetric_difference(stopwords)
-    print(diff)
+    print("Stop words")
+    print("Missing")
+    print(ref_stopwords - stopwords)
+    print("Over")
+    print(stopwords - ref_stopwords)
     assert type(stopwords) == set().__class__
     assert len(diff) == 0
 
