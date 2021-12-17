@@ -64,6 +64,9 @@ def ref_main():
             predicted_label = "neg"
         print(f"sentence {i+1} -- pos:{pos_score:6.3f}  neg:{neg_score:6.3f}  prediction:{predicted_label}")
 
+def remove_punctuation_from_keys(dictionary):
+    return dict(map(lambda entry : (entry[0].translate(str.maketrans("", "", string.punctuation)), entry[1]), dictionary.items()))
+    
 def test_load_ndsi(module):
     ref_word_ndsi = ref_load_ndsi('temp/ref-ndsi.txt')
     folder_name, _ = os.path.split(module.__file__)
@@ -71,8 +74,10 @@ def test_load_ndsi(module):
     word_ndsi = module.load_ndsi(os.path.join(folder_name, 'ndsi.txt'))
     # use this if load_ndsi assumes the format exactly from the assignment document
     # word_ndsi = module.load_ndsi('tmp/ref-ndsi.txt')
-    diff_missing = set(ref_word_ndsi.items()) - set(word_ndsi.items())
-    diff_over = set(word_ndsi.items()) - set(ref_word_ndsi.items())
+    
+    normalized_result = remove_punctuation_from_keys(word_ndsi)
+    diff_missing = set(ref_word_ndsi.items()) - set(normalized_result.items())
+    diff_over = set(normalized_result.items()) - set(ref_word_ndsi.items())
     diff = diff_missing.union(diff_over)
     
     print("Load NDSI")

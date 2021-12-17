@@ -90,6 +90,9 @@ def test_load_stop_words(module):
     assert type(stopwords) == set().__class__
     assert len(diff) == 0
 
+def remove_punctuation_from_keys(dictionary):
+    return dict(map(lambda entry : (entry[0].translate(str.maketrans("", "", string.punctuation)), entry[1]), dictionary.items()))
+
 def test_count_words(module):
     pos_filename = "sent-polarity-data/rt-polarity-sample.pos"
     neg_filename = "sent-polarity-data/rt-polarity-sample.neg"
@@ -101,11 +104,14 @@ def test_count_words(module):
     word_freq_pos = module.count_words(pos_filename, ref_stopwords)
     word_freq_neg = module.count_words(neg_filename, ref_stopwords)
     
-    diff_pos_missing = set(ref_word_freq_pos.items()) - set(word_freq_pos.items())
-    diff_neg_missing = set(ref_word_freq_neg.items()) - set(word_freq_neg.items())
+    norm_word_freq_pos = remove_punctuation_from_keys(word_freq_pos)
+    norm_word_freq_neg = remove_punctuation_from_keys(word_freq_neg)
     
-    diff_pos_over = set(word_freq_pos.items()) - set(ref_word_freq_pos.items())
-    diff_neg_over = set(word_freq_neg.items()) - set(ref_word_freq_neg.items())
+    diff_pos_missing = set(ref_word_freq_pos.items()) - set(norm_word_freq_pos.items())
+    diff_neg_missing = set(ref_word_freq_neg.items()) - set(norm_word_freq_neg.items())
+    
+    diff_pos_over = set(word_freq_pos.items()) - set(norm_word_freq_pos.items())
+    diff_neg_over = set(word_freq_neg.items()) - set(norm_word_freq_neg.items())
     
     diff_pos = diff_pos_missing.union(diff_pos_over)
     diff_neg = diff_neg_missing.union(diff_neg_over)
